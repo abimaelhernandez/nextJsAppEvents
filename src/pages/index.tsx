@@ -4,8 +4,11 @@ import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 
 const inter = Inter({ subsets: ["latin"] });
+interface HomeProps { 
+  title: string;
+}
 
-export default function Home() {
+const Home = ({title}: HomeProps)  => {
   return (
     <>
       <Head>
@@ -16,7 +19,7 @@ export default function Home() {
       </Head>
     
         <header>
-          <nav>
+          <nav className={styles.nav}>
             <a href="/"> home </a>
             <a href="/about-us"> about us </a>
             <a href="/events"> events </a>
@@ -26,7 +29,7 @@ export default function Home() {
         <main className={`${styles.main} ${inter.className}`}>
           <a href="">
             <h1 className={styles.title}>
-              event mexico
+              Showing title Barcelona {title}
             </h1>
             <p>
               Lorem, ipsum dolor sit amet consectetur adipisicing elit. Itaque, aspernatur! Distinctio tenetur esse vel illo nihil dolor quis obcaecati, architecto quasi numquam ullam? Temporibus, eveniet quae ex nostrum nam voluptate.
@@ -57,4 +60,14 @@ export default function Home() {
         </footer>
     </>
   );
+}
+
+export default Home;
+
+export function getServerSideProps() {
+  return {
+    props: {
+      title: 'hello evcveryone' 
+    },
+  }
 }

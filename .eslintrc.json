@@ -4,7 +4,7 @@
     "airbnb-typescript",
     "plugin:prettier/recommended",
     "plugin:import/recommended",
-    "plugin:storybook/recommended"
+    // "plugin:storybook/recommended"
   ],
   "plugins": ["react", "@typescript-eslint", "prettier", "import"],
   "parser": "@typescript-eslint/parser",
@@ -17,7 +17,7 @@
       }
     ],
     "prettier/prettier": [
-      "warn",
+      // "warn",
       {
         "endOfLine": "auto"
       },

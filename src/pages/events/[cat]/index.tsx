@@ -1,12 +1,11 @@
 const EventOne = () => {
   return (
     <>
-    <div>
-      <a href="">event 1 2 </a>
-      <a href="">event 1  gg</a>
-      <a href="">event 1  as</a>
-
+    <div className="">
       <h1>Event cat index </h1>
+      <a href="">event category index </a>
+      <a href="">event category GG </a>
+      <a href="">event 3 </a>
     </div>
     </>
   )
