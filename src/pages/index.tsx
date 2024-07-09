@@ -2,13 +2,31 @@ import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
+// import data from '../data/data.json';
 
 const inter = Inter({ subsets: ["latin"] });
-interface HomeProps { 
-  title: string;
+
+
+export async function getServerSideProps() {
+
+  const {events_categories} = await import('../data/data.json') 
+
+  return {
+    props: {
+      title: 'hello evcveryone',
+      data: JSON.parse(JSON.stringify(events_categories))
+    },
+  }
 }
 
-const Home = ({title}: HomeProps)  => {
+interface HomeProps { 
+  title: string;
+  data: any;
+}
+
+const Home = ({title, data}: HomeProps)  => {
+  console.log('insied of home', data);
+
   return (
     <>
       <Head>
@@ -27,32 +45,20 @@ const Home = ({title}: HomeProps)  => {
         </header>
 
         <main className={`${styles.main} ${inter.className}`}>
-          <a href="">
-            <h1 className={styles.title}>
-              Showing title Barcelona {title}
-            </h1>
-            <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Itaque, aspernatur! Distinctio tenetur esse vel illo nihil dolor quis obcaecati, architecto quasi numquam ullam? Temporibus, eveniet quae ex nostrum nam voluptate.
-            </p>
-          </a>
-
-          <a href="">
-            <h1 className={styles.title}>
-              event san francisco
-            </h1>
-            <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Itaque, aspernatur! Distinctio tenetur esse vel illo nihil dolor quis obcaecati, architecto quasi numquam ullam? Temporibus, eveniet quae ex nostrum nam voluptate.
-            </p>
-          </a>
-
-          <a href="">
-            <h1 className={styles.title}>
-             event london
-            </h1>
-            <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Itaque, aspernatur! Distinctio tenetur esse vel illo nihil dolor quis obcaecati, architecto quasi numquam ullam? Temporibus, eveniet quae ex nostrum nam voluptate.
-            </p>
-          </a>
+          {data && data.map((event: any, index: number) =>  {
+            return (
+              <a key={event.id} href={`/events/${event.id}`}>
+                <Image 
+                  src={event.image} 
+                  alt={event.tittle}
+                  width={200}
+                  height={200}
+                />
+                <h2>{event.tittle}</h2>
+                <p>{event.description}</p>
+              </a>
+            )})
+            }
         </main>
 
         <footer className={styles.footer}>
@@ -63,11 +69,3 @@ const Home = ({title}: HomeProps)  => {
 }
 
 export default Home;
-
-export function getServerSideProps() {
-  return {
-    props: {
-      title: 'hello evcveryone' 
-    },
-  }
-}
